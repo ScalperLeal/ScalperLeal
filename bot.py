@@ -1,14 +1,18 @@
 # bot.py
 import time
 from binance.client import Client
-from config import API_KEY, API_SECRET, SYMBOL, RISK_PER_TRADE_PCT
+from config import API_KEY, API_SECRET, SYMBOL
 from telegram_notifier import send_telegram_message
+
+print("🧪 Enviando mensagem de teste no Telegram...")
+send_telegram_message("🟢 [TESTE] Bot do Scalper Leal está funcionando!")
+print("✅ Mensagem de teste enviada.")
 
 client = Client(API_KEY, API_SECRET)
 
 def calculate_position_size():
     balance = float(client.get_account()['balances'][0]['free'])
-    risk_amount = balance * (RISK_PER_TRADE_PCT / 100)
+    risk_amount = balance * 0.005  # 0.5%
     lot_size = risk_amount / 10  # Exemplo simplificado
     return round(lot_size, 3)
 
