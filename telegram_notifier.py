@@ -3,8 +3,8 @@ import requests
 import os
 
 def send_telegram_message(message):
-    TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-    TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+    TELEGRAM_BOT_TOKEN = os.getenv("7228891982:AAE8i0SwYeEVJFo8o02avyeTgtn4nHeoTQI")
+    TELEGRAM_CHAT_ID = os.getenv("858755726")
 
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         print("❌ Token ou Chat ID do Telegram não configurados.")
