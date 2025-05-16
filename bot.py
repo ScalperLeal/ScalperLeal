@@ -1,19 +1,18 @@
 # bot.py
+import os
 import time
 from binance.client import Client
 from config import API_KEY, API_SECRET, SYMBOL
 from telegram_notifier import send_telegram_message
+from telegram.ext import Updater, CommandHandler
 
-print("🧪 Enviando mensagem de teste no Telegram...")
-send_telegram_message("🟢 [TESTE] Bot do Scalper Leal está funcionando!")
-print("✅ Mensagem de teste enviada.")
-
+# Conectar com Binance
 client = Client(API_KEY, API_SECRET)
 
 def calculate_position_size():
     balance = float(client.get_account()['balances'][0]['free'])
     risk_amount = balance * 0.005  # 0.5%
-    lot_size = risk_amount / 10  # Exemplo simplificado
+    lot_size = risk_amount / 10
     return round(lot_size, 3)
 
 def fetch_data():
@@ -28,9 +27,11 @@ def fetch_data():
     df['ma_21'] = df['close'].rolling(21).mean()
     return df.iloc[-1]
 
+# Estratégia e sinais
 print("🚀 Bot iniciado com sucesso!")
 send_telegram_message("🟢 Bot Scalper Leal iniciado!")
 
+# Loop principal
 while True:
     try:
         data = fetch_data()
@@ -50,20 +51,18 @@ while True:
         send_telegram_message(f"❌ Erro no ciclo: {e}")
         time.sleep(10)
 
-# Iniciar bot do Telegram
+# === BOT DO TELEGRAM RESPONDENDO AO /start ===
 if __name__ == '__main__':
     TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
     if TELEGRAM_BOT_TOKEN:
-        from telegram.ext import Updater, CommandHandler
-
-        def start(update, context):
+        def start_command(update, context):
             update.message.reply_text("🟢 Bot Scalper Leal está ativo!")
 
         updater = Updater(TELEGRAM_BOT_TOKEN)
         dp = updater.dispatcher
-        dp.add_handler(CommandHandler("start", start))
+        dp.add_handler(CommandHandler("start", start_command))
         updater.start_polling()
         print("🤖 Bot do Telegram iniciado e aguardando comandos...")
         updater.idle()
     else:
-        print("❌ Token do Telegram não encontrado. Comandos desativados.")
+        print("❌ Token do Telegram não configurado. Comandos desativados.")
