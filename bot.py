@@ -49,3 +49,21 @@ while True:
     except Exception as e:
         send_telegram_message(f"❌ Erro no ciclo: {e}")
         time.sleep(10)
+
+# Iniciar bot do Telegram
+if __name__ == '__main__':
+    TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+    if TELEGRAM_BOT_TOKEN:
+        from telegram.ext import Updater, CommandHandler
+
+        def start(update, context):
+            update.message.reply_text("🟢 Bot Scalper Leal está ativo!")
+
+        updater = Updater(TELEGRAM_BOT_TOKEN)
+        dp = updater.dispatcher
+        dp.add_handler(CommandHandler("start", start))
+        updater.start_polling()
+        print("🤖 Bot do Telegram iniciado e aguardando comandos...")
+        updater.idle()
+    else:
+        print("❌ Token do Telegram não encontrado. Comandos desativados.")
