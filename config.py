@@ -1,8 +1,8 @@
 import os
 
 # Credenciais da Binance
-API_KEY = os.getenv ("ndiz4nLHmsvNLhmyHBvS3O5XJUIQ3B76r5Xyur8dc5gKG9eo9GV7RCAPN3ASzbu0")
-API_SECRET = os.getenv ("dfzv8066w1FjXGqPbEyeb0RhyMEKL3DJh8xVd1G4ZfXfXuZ85FztrqdyRVYtrY71")
+API_KEY = os.getenv (ndiz4nLHmsvNLhmyHBvS3O5XJUIQ3B76r5Xyur8dc5gKG9eo9GV7RCAPN3ASzbu0)
+API_SECRET = os.getenv (dfzv8066w1FjXGqPbEyeb0RhyMEKL3DJh8xVd1G4ZfXfXuZ85FztrqdyRVYtrY71)
 
 # Configurações do mercado
 SYMBOL = "BTCUSDT"
